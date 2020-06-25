@@ -1,0 +1,25 @@
+TensorFlow 2.0 Upgrade Script
+-----------------------------
+Converted 1 files
+Detected 0 issues that require attention
+--------------------------------------------------------------------------------
+================================================================================
+Detailed log follows:
+
+================================================================================
+--------------------------------------------------------------------------------
+Processing file 'detect_face.py'
+ outputting to 'detect_face2.py'
+--------------------------------------------------------------------------------
+
+153:32: INFO: Added keywords to args of function 'tf.nn.conv2d'
+153:32: INFO: Renamed keyword argument for tf.nn.conv2d from filter to filters
+178:15: INFO: Added keywords to args of function 'tf.nn.max_pool'
+178:15: INFO: Renamed keyword argument for tf.nn.max_pool from value to input
+178:15: INFO: Renamed 'tf.nn.max_pool' to 'tf.nn.max_pool2d'
+198:17: INFO: Renamed 'tf.nn.relu_layer' to 'tf.compat.v1.nn.relu_layer'
+198:47: INFO: Renamed 'tf.nn.xw_plus_b' to 'tf.compat.v1.nn.xw_plus_b'
+211:19: INFO: Added keywords to args of function 'tf.reduce_max'
+213:20: INFO: Added keywords to args of function 'tf.reduce_sum'
+--------------------------------------------------------------------------------
+

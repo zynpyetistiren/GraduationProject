@@ -61,8 +61,4 @@ A tensorflow implementation of merged [WarpGAN](https://arxiv.org/abs/1811.10100
 ##### Discriminator Initializaiton: 
 [Google Drive](https://drive.google.com/open?id=1hcxr7yCiS8om59deMrRXFBYNJSrKtqNT)
 
-##### WarpGAN: 
-[Google Drive](https://drive.google.com/open?id=1XwjMGcYIg2qwEKHsC7uSmZayHvnEFhyg)
-
-
 

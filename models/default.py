@@ -19,7 +19,6 @@ from __future__ import print_function
 
 from math import atanh
 from functools import partial
-#import tensorflow as tf
 import tensorflow as tf
 import numpy as np
 import tf_slim as slim
@@ -115,7 +114,7 @@ def discriminator(images, num_classes, bottleneck_size=512, keep_prob=1.0, phase
                 # Global Discriminator
                 net = slim.flatten(net)
                 prelogits = slim.fully_connected(net, bottleneck_size, scope='Bottleneck',
-                                        weights_initializer=tf.compat.v1.keras.initializers.VarianceScaling(scale=1.0, mode="fan_avg", distribution="uniform"), 
+                                        weights_initializer=tf.compat.v1.keras.initializers.VarianceScaling(scale=1.0, mode="fan_avg", distribution="uniform"),
                                         activation_fn=None, normalizer_fn=None)
                 prelogits = tf.nn.l2_normalize(prelogits, axis=1)
                 print('latent shape:', [dim.value for dim in prelogits.shape])

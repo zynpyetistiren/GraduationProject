@@ -123,7 +123,7 @@ def main(args):
         if config.save_model:
             network.save_model(log_dir, global_step)
 
-        return
+
 def PopBatchQueue(Dataset):
     return Dataset.pop_batch_queue()
 

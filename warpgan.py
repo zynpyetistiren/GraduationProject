@@ -36,8 +36,8 @@ import tensorflow as tf
 class WarpGAN:
     def __init__(self):
         self.graph = tf.Graph()
-        #gpu_options = tf.GPUOptions(allow_growth=True)
-        tf_config = tf.compat.v1.ConfigProto(device_count= {'GPU': 0},#currently running on cpu
+        gpu_options = tf.compat.v1.GPUOptions(allow_growth=True)
+        tf_config = tf.compat.v1.ConfigProto(gpu_options= gpu_options, #device_count= {'GPU': 0},#to run on cpu
                 allow_soft_placement=True, log_device_placement=False)
         self.sess = tf.compat.v1.Session(graph=self.graph, config=tf_config)
             

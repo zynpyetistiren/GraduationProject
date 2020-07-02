@@ -20,10 +20,10 @@ summary_interval = 100
 
 # Prefix to the image files
 # data_prefix = os.environ["DATABASES2"] + "/caricature/WebCaricature/webcaric_5ptaligned_sc0.7_256/"
-data_prefix = "data/data/WebCaricature/OriginalImages" # anime_face_landmark/anime_faces/    data/webcaricature_aligned_256/
+data_prefix = "data/data/" # anime_face_landmark/anime_faces/    data/webcaricature_aligned_256/
 
 # Training data list
-train_dataset_path = "./data/train.txt"
+train_dataset_path = "./data/overfit_train.txt"
 
 # Test data list
 test_dataset_path = "./data/test.txt"
@@ -74,7 +74,7 @@ batch_size = 2
 epoch_size = 2
 
 # Number of epochs
-num_epochs = 8
+num_epochs = 1000
 
 # learning rate strategy
 learning_rate_strategy = 'linear'

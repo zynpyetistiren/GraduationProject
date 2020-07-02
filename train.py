@@ -120,7 +120,7 @@ def main(args):
         print("test completed\n")
 
         # Save the model
-        if config.save_model:
+        if config.save_model and epoch%10 == 0:
             network.save_model(log_dir, global_step)
 
 

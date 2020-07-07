@@ -20,7 +20,7 @@ summary_interval = 100
 
 # Prefix to the image files
 # data_prefix = os.environ["DATABASES2"] + "/caricature/WebCaricature/webcaric_5ptaligned_sc0.7_256/"
-data_prefix = "data/data/"
+data_prefix = "data/data/Dataset/"
 
 # Training data list
 train_dataset_path = "./data/train.txt"

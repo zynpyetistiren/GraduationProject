@@ -94,14 +94,10 @@ def main(args):
         for step in range(config.epoch_size):
             # Prepare input
             learning_rate = utils.get_updated_learning_rate(global_step, config)
-            print("trying to pop the batch, ",step)
-            #batch = trainset.pop_batch_queue()
             batch = PopBatchQueue(trainset)
-            print("batch popped , now starting to train epoch size: ", config.epoch_size)
-            print("current batch: ", step)
+            print("current epoch: ", epoch)
 
             wl, sm, global_step = network.train(batch['images'], batch['labels'], batch['is_photo'], learning_rate, config.keep_prob)
-            print("one batch trained")
             wl['lr'] = learning_rate
             # Display
             if step % config.summary_interval == 0:
@@ -111,16 +107,16 @@ def main(args):
                 print("end of display")
                 # if config.save_model:
                 #     summary_writer.add_summary(sm, global_step=global_step)
-            print("current batch done\n")
 
 
-        print("\nEnd of one epoch, now testing...")
+        print("\nEnd of an epoch")
         # Testing
-        test(network, config, log_dir, global_step)
-        print("test completed\n")
+        if epoch%100 == 0:
+            print("Testing..")
+            test(network, config, log_dir, global_step)
 
         # Save the model
-        if config.save_model and epoch%10 == 0:
+        if config.save_model and epoch%100 == 0:
             network.save_model(log_dir, global_step)
 
 

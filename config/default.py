@@ -10,7 +10,7 @@ import os
 name = 'default'
 
 # The folder to save log and model
-log_base_dir = './log/'
+log_base_dir = '/content/drive/My\ Drive/log/'
 
 # Whether to save the model checkpoints and result logs
 save_model = True
@@ -20,10 +20,10 @@ summary_interval = 100
 
 # Prefix to the image files
 # data_prefix = os.environ["DATABASES2"] + "/caricature/WebCaricature/webcaric_5ptaligned_sc0.7_256/"
-data_prefix = "data/data/" # anime_face_landmark/anime_faces/    data/webcaricature_aligned_256/
+data_prefix = "data/data/" 
 
 # Training data list
-train_dataset_path = "./data/overfit_train.txt"
+train_dataset_path = "./data/train.txt"
 
 # Test data list
 test_dataset_path = "./data/test.txt"

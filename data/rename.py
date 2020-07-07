@@ -1,10 +1,10 @@
 import os
 
+for count, filename in enumerate(os.listdir("realTest3k/")):
+    dst = "P" + filename
+    src = 'realTest3k/' + filename
+    dst = 'realTest3k/' + dst
 
-prefix = 'data/WebCaricature/OriginalImages'
-
-for oldname in os.listdir(prefix):
-    newname = oldname.replace(' ', '_')
-    os.rename(os.path.join(prefix, oldname), os.path.join(prefix, newname))
-
-    
+    # rename() function will
+    # rename all the files
+    os.rename(src, dst)

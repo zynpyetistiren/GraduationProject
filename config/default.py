@@ -10,7 +10,7 @@ import os
 name = 'default'
 
 # The folder to save log and model
-log_base_dir = '/content/drive/My\ Drive/log/'
+log_base_dir = '/content/drive/My Drive/log/'
 
 # Whether to save the model checkpoints and result logs
 save_model = True

@@ -68,7 +68,7 @@ optimizer = ("ADAM", {'beta1': 0.5, 'beta2': 0.9})
 # optimizer = ("MOM", {'momentum': 0.9})
 
 # Number of samples per batch
-batch_size = 2
+batch_size = 128
 
 # Number of batches per epoch
 epoch_size = 2

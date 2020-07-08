@@ -16,7 +16,7 @@ log_base_dir = '/content/drive/My Drive/log/'
 save_model = True
 
 # The interval between writing summary
-summary_interval = 100
+summary_interval = 1000
 
 # Prefix to the image files
 # data_prefix = os.environ["DATABASES2"] + "/caricature/WebCaricature/webcaric_5ptaligned_sc0.7_256/"

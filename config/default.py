@@ -74,7 +74,7 @@ batch_size = 2
 epoch_size = 2
 
 # Number of epochs
-num_epochs = 1000
+num_epochs = 100000
 
 # learning rate strategy
 learning_rate_strategy = 'linear'
@@ -88,10 +88,10 @@ learning_rate_schedule = {
 }
 
 # Restore model
-restore_model = "pretrained/discriminator_casia_256/"
+restore_model = '/content/drive/My Drive/log/default/'
 
 # Keywords to filter restore variables, set None for all
-restore_scopes = ['Discriminator/conv', 'Discriminator/Bot']
+restore_scopes = None #['Discriminator/conv', 'Discriminator/Bot']
 
 # Weight decay for model variables
 weight_decay = 1e-4

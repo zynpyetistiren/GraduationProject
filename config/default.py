@@ -46,7 +46,7 @@ preprocess_test = [
 ]
 
 # Number of GPUs
-num_gpus = 0
+num_gpus = 1
 
 
 ####### NETWORK #######
@@ -71,10 +71,10 @@ optimizer = ("ADAM", {'beta1': 0.5, 'beta2': 0.9})
 batch_size = 128
 
 # Number of batches per epoch
-epoch_size = 2
+epoch_size = 200
 
 # Number of epochs
-num_epochs = 100000
+num_epochs = 250
 
 # learning rate strategy
 learning_rate_strategy = 'linear'

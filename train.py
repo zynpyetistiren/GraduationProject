@@ -111,12 +111,12 @@ def main(args):
 
         print("\nEnd of an epoch")
         # Testing
-        if epoch%1000 == 0:
+        if epoch%10 == 0:
             print("Testing..")
             test(network, config, log_dir, global_step)
 
         # Save the model
-        if config.save_model and epoch%1000 == 0:
+        if config.save_model and epoch%10 == 0:
             network.save_model(log_dir, global_step)
 
 

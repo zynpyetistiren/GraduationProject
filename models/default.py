@@ -244,7 +244,7 @@ def decoder(encoded, scales, images_rendered, texture_only=False, style_size=1, 
     with tf.compat.v1.variable_scope(scope, reuse=reuse):
         with slim.arg_scope([slim.conv2d, slim.conv2d_transpose, slim.fully_connected],
                         activation_fn=tf.nn.relu,
-                        # weights_initializer=tf.contrib.layers.xavier_initializer(),
+                        #weights_initializer=tf.contrib.layers.xavier_initializer(),
                         weights_initializer=tf.compat.v1.keras.initializers.VarianceScaling(scale=2.0),
                         weights_regularizer=tf.keras.regularizers.l2(0.5 * (weight_decay))):
             with slim.arg_scope([slim.dropout, slim.batch_norm], is_training=phase_train):
@@ -279,38 +279,38 @@ def decoder(encoded, scales, images_rendered, texture_only=False, style_size=1, 
 
 
 
-                    # with tf.compat.v1.variable_scope('Decoder'):
-                    #     print('-- Decoder')
-                    #     net = encoded
-                    #
-                    #     adain = lambda x : gamma * instance_norm(x, center=False, scale=False) + beta
-                    #
-                    #     with slim.arg_scope([slim.conv2d_transpose, slim.conv2d],
-                    #                 normalizer_fn=adain, normalizer_params=None):
-                    #         for i in range(3):
-                    #             net_ = conv(net, 4*k, 3, scope='res{}_0'.format(i))
-                    #             net += conv(net_, 4*k, 3, activation_fn=None, biases_initializer=None, scope='res{}_1'.format(i))
-                    #             print('module res{} shape:'.format(i), [dim.value for dim in net.shape])
-                    #
-                    #
-                    #     with slim.arg_scope([slim.conv2d, slim.conv2d_transpose, slim.fully_connected],
-                    #             normalizer_fn=layer_norm, normalizer_params=None):
-                    #         net = upscale2d(net, 2)
-                    #         net = conv(net, 2*k, 5, pad=2, scope='deconv1_1')
-                    #         print('module deconv1 shape:', [dim.value for dim in net.shape])
-                    #
-                    #         net = upscale2d(net, 2)
-                    #         net = conv(net, k, 5, pad=2, scope='deconv2_1')
-                    #
-                    #     net = conv(net, 3, 7, pad=3, activation_fn=None, normalizer_fn=None,
-                    #                 weights_initializer=tf.compat.v1.constant_initializer(0.0), scope='conv_image')
-                    #     images_rendered = tf.nn.tanh(net, name='images_rendered')
-                    #
-                    #
-                    #     print('images_rendered shape:', [dim.value for dim in images_rendered.shape])
-                    #
-                    # if texture_only:
-                    #     return images_rendered
+                    with tf.compat.v1.variable_scope('Decoder'):
+                        print('-- Decoder')
+                        net = encoded
+                    
+                        #adain = lambda x : gamma * instance_norm(x, center=False, scale=False) + beta
+                    
+                        with slim.arg_scope([slim.conv2d_transpose, slim.conv2d],
+                                    normalizer_fn=layer_norm, normalizer_params=None):
+                            for i in range(3):
+                                net_ = conv(net, 4*k, 3, scope='res{}_0'.format(i))
+                                net += conv(net_, 4*k, 3, activation_fn=None, biases_initializer=None, scope='res{}_1'.format(i))
+                                print('module res{} shape:'.format(i), [dim.value for dim in net.shape])
+                    
+                    
+                        with slim.arg_scope([slim.conv2d, slim.conv2d_transpose, slim.fully_connected],
+                                normalizer_fn=layer_norm, normalizer_params=None):
+                            net = upscale2d(net, 2)
+                            net = conv(net, 2*k, 5, pad=2, scope='deconv1_1')
+                            print('module deconv1 shape:', [dim.value for dim in net.shape])
+                    
+                            net = upscale2d(net, 2)
+                            net = conv(net, k, 5, pad=2, scope='deconv2_1')
+                    
+                        net = conv(net, 3, 7, pad=3, activation_fn=None, normalizer_fn=None,
+                                    weights_initializer=tf.compat.v1.constant_initializer(0.0), scope='conv_image')
+                        images_rendered = tf.nn.tanh(net, name='images_rendered')
+                    
+                    
+                        print('images_rendered shape:', [dim.value for dim in images_rendered.shape])
+                    
+                    if texture_only:
+                        return images_rendered
 
 
 
@@ -356,8 +356,8 @@ def decoder(encoded, scales, images_rendered, texture_only=False, style_size=1, 
                         dst_pts = tf.reshape(ldmark_pred + ldmark_diff, [-1, num_ldmark, 2])
 
                         diff_norm = tf.reduce_mean(input_tensor=tf.norm(tensor=src_pts-dst_pts, axis=[1,2]))
-                        # tf.summary.scalar('diff_norm', diff_norm)
-                        # tf.summary.scalar('mark', ldmark_pred[0,0])
+                        tf.summary.scalar('diff_norm', diff_norm)
+                        tf.summary.scalar('mark', ldmark_pred[0,0])
 
                         images_transformed, dense_flow = sparse_image_warp(warp_input, src_pts, dst_pts,
                                 regularization_weight = 1e-6, num_boundary_points=0)

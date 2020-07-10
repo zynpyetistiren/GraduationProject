@@ -88,10 +88,10 @@ learning_rate_schedule = {
 }
 
 # Restore model
-restore_model = '/content/drive/My Drive/log/default/'
+restore_model = 'pretrained/discriminator_casia_256/'#'/content/drive/My Drive/log/default/20200710-001229/'
 
 # Keywords to filter restore variables, set None for all
-restore_scopes = None #['Discriminator/conv', 'Discriminator/Bot']
+restore_scopes = ['Discriminator/conv', 'Discriminator/Bot']
 
 # Weight decay for model variables
 weight_decay = 1e-4

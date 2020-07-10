@@ -74,8 +74,8 @@ class WarpGAN:
                 deform_BA, render_BA, ldmark_pred, ldmark_diff = self.decoder(encode_B, self.scales_B, images_renderedB,None)
                 # render_AA = self.decoder(encode_A, self.scales_A, styles_A, texture_only=True)
                 # render_BB = self.decoder(encode_B, self.scales_B, styles_B, texture_only=True)
-                #render_AA = self.decoder(encode_A, self.scales_A,texture_only=True)
-                #render_BB = self.decoder(encode_B, self.scales_B,texture_only=True)
+                render_AA = self.decoder(encode_A, self.scales_A,images_renderedA, texture_only=True)
+                render_BB = self.decoder(encode_B, self.scales_B,images_renderedB, texture_only=True)
 
                 # self.styles_A = tf.identity(styles_A, name='styles_A')
                 # self.styles_B = tf.identity(styles_B, name='styles_B')
@@ -91,13 +91,13 @@ class WarpGAN:
                 patch_logits_BA, logits_BA = self.discriminator(deform_BA)                          
 
                 # Show images in TensorBoard
-                #image_grid_A = tf.stack([self.images_A, render_AA], axis=1)[:1]
-                #image_grid_B = tf.stack([self.images_B, render_BB], axis=1)[:1]
-                #image_grid_BA = tf.stack([self.images_B, deform_BA], axis=1)[:1]
-                #image_grid = tf.concat([image_grid_A, image_grid_B, image_grid_BA], axis=0)
-                #image_grid = tf.reshape(image_grid, [-1] + list(self.images_A.shape[1:]))
-                #image_grid = self.image_grid(image_grid, (3,2))
-                #tf.compat.v1.summary.image('image_grid', image_grid)
+                image_grid_A = tf.stack([self.images_A, render_AA], axis=1)[:1]
+                image_grid_B = tf.stack([self.images_B, render_BB], axis=1)[:1]
+                image_grid_BA = tf.stack([self.images_B, deform_BA], axis=1)[:1]
+                image_grid = tf.concat([image_grid_A, image_grid_B, image_grid_BA], axis=0)
+                image_grid = tf.reshape(image_grid, [-1] + list(self.images_A.shape[1:]))
+                image_grid = self.image_grid(image_grid, (3,2))
+                tf.compat.v1.summary.image('image_grid', image_grid)
 
 
                 # Build all losses
@@ -125,15 +125,15 @@ class WarpGAN:
                 loss_list_G.append(loss_G)
 
                 # Identity Mapping (Reconstruction) loss
-                # loss_idt_A = tf.reduce_mean(input_tensor=tf.abs(render_AA - self.images_A), name='idt_loss_A')
-                # loss_idt_A = config.coef_idt * loss_idt_A
-                #
-                # loss_idt_B = tf.reduce_mean(input_tensor=tf.abs(render_BB - self.images_B), name='idt_loss_B')
-                # loss_idt_B = config.coef_idt * loss_idt_B
+                loss_idt_A = tf.reduce_mean(input_tensor=tf.abs(render_AA - self.images_A), name='idt_loss_A')
+                loss_idt_A = config.coef_idt * loss_idt_A
+                
+                loss_idt_B = tf.reduce_mean(input_tensor=tf.abs(render_BB - self.images_B), name='idt_loss_B')
+                loss_idt_B = config.coef_idt * loss_idt_B
 
-                # self.watch_list['idtA'] = loss_idt_A
-                # self.watch_list['idtB'] = loss_idt_B
-                # loss_list_G.append(loss_idt_A+loss_idt_B)
+                self.watch_list['idtA'] = loss_idt_A
+                self.watch_list['idtB'] = loss_idt_B
+                loss_list_G.append(loss_idt_A+loss_idt_B)
 
 
                 # Collect all losses
@@ -308,8 +308,8 @@ class WarpGAN:
             self.phase_train = self.graph.get_tensor_by_name('phase_train:0')
             self.keep_prob = self.graph.get_tensor_by_name('keep_prob:0')
             self.deform_BA = self.graph.get_tensor_by_name('deform_BA:0')
-            # self.ldmark_pred = self.graph.get_tensor_by_name('ldmark_pred:0')
-            # self.ldmark_diff = self.graph.get_tensor_by_name('ldmark_diff:0')
+            self.ldmark_pred = self.graph.get_tensor_by_name('ldmark_pred:0')
+            self.ldmark_diff = self.graph.get_tensor_by_name('ldmark_diff:0')
             # self.input_style = self.graph.get_tensor_by_name('Decoder/StyleController/input_style:0')
             self.warp_input = self.graph.get_tensor_by_name('Decoder/WarpController/warp_input:0')
 
@@ -341,8 +341,8 @@ class WarpGAN:
         num_images = images.shape[0]
         h, w, c = tuple(self.deform_BA.shape[1:])
         result = np.ndarray((num_images, h, w, c), dtype=np.float32)
-        #ldmark_pred = np.ndarray((num_images, self.ldmark_pred.shape[1].value), dtype=np.float32)
-        #ldmark_diff = np.ndarray((num_images, self.ldmark_pred.shape[1].value), dtype=np.float32)
+        ldmark_pred = np.ndarray((num_images, self.ldmark_pred.shape[1].value), dtype=np.float32)
+        ldmark_diff = np.ndarray((num_images, self.ldmark_pred.shape[1].value), dtype=np.float32)
         for start_idx in range(0, num_images, batch_size):
             end_idx = min(num_images, start_idx + batch_size)
             indices = slice(start_idx, end_idx)

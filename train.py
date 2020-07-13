@@ -48,6 +48,8 @@ def test(network, config, log_dir, step):
     output_dir = os.path.join(log_dir, 'samples')
     if not os.path.isdir(output_dir):
         os.makedirs(output_dir)
+        utils.save_manifold(test.images, os.path.join(output_dir, 'testImages.jpg'.format(step)))
+        
 
     # scales = np.indices((8,8), dtype=np.float32)[1] * 5
     scales = np.ones((8,8))

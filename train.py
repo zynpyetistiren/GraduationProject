@@ -115,7 +115,7 @@ def main(args):
         test(network, config, log_dir, global_step)
 
         # Save the model
-        if config.save_model && epoch % 5 == 0:
+        if config.save_model and epoch % 10 == 0:
             network.save_model(log_dir, global_step)
 
 

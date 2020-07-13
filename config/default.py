@@ -103,10 +103,10 @@ keep_prob = 1.0
 ####### LOSS FUNCTION #######
 
 # Weight of the global adversarial loss
-coef_adv = 1.0
+coef_adv = 0.5
 
 # Weight of the patch adversarial loss
-coef_patch_adv = 2.0
+coef_patch_adv = 1.0
 
 # Weight of the identity mapping loss
-coef_idt = 10.0
+coef_idt = 15.0

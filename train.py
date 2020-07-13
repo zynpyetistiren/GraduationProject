@@ -95,7 +95,7 @@ def main(args):
             # Prepare input
             learning_rate = utils.get_updated_learning_rate(global_step, config)
             batch = PopBatchQueue(trainset)
-            print("current epoch: ", epoch)
+            print("current batch: ",step)
 
             wl, sm, global_step = network.train(batch['images'], batch['labels'], batch['is_photo'], learning_rate, config.keep_prob)
             wl['lr'] = learning_rate
@@ -109,13 +109,13 @@ def main(args):
                 #     summary_writer.add_summary(sm, global_step=global_step)
 
 
-        print("\nEnd of an epoch")
+        print("\nEnd of epoch ", epoch)
         # Testing
 
         test(network, config, log_dir, global_step)
 
         # Save the model
-        if config.save_model:
+        if config.save_model && epoch % 5 == 0:
             network.save_model(log_dir, global_step)
 
 

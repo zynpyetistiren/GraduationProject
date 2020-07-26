@@ -68,7 +68,7 @@ optimizer = ("ADAM", {'beta1': 0.5, 'beta2': 0.9})
 # optimizer = ("MOM", {'momentum': 0.9})
 
 # Number of samples per batch
-batch_size = 128
+batch_size = 32
 
 # Number of batches per epoch
 epoch_size = 200
@@ -109,4 +109,4 @@ coef_adv = 1.0
 coef_patch_adv = 2.0
 
 # Weight of the identity mapping loss
-coef_idt = 10.0
+coef_idt = 50.0

@@ -33,7 +33,7 @@ if __name__ == '__main__':
     with open("file.txt") as file_in:
       lines = []
       for line in file_in:
-          lines.append(line) = f.readlines()
+          lines.append(os.path.join(path,line))
 
 
     #imgs = []

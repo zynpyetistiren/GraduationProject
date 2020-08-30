@@ -4,6 +4,9 @@ import numpy as np
 from scipy import misc
 import scipy.io as sio
 from warpgan import WarpGAN
+from PIL import Image
+import glob
+image_list = []
 
 # Parse aguements
 parser = argparse.ArgumentParser()
@@ -27,23 +30,51 @@ if __name__ == '__main__':
     network = WarpGAN()
     network.load_model(args.model_dir)
 
-    img = misc.imread(args.input, mode='RGB')
+    with open("file.txt") as file_in:
+      lines = []
+      for line in file_in:
+          lines.append(line) = f.readlines()
 
-    if not args.aligned:
-        from align.detect_align import detect_align
-        img = detect_align(img)
 
-    img = (img - 127.5) / 128.0
+    #imgs = []
+    #path = "data/testdata"
+    #for im in lines:
+    #  imgs.append(Image.open(os.path.join(path,im)))
 
-    images = np.tile(img[None], [args.num_styles, 1, 1, 1])
-    scales = args.scale * np.ones((1))
-    #styles = np.random.normal(0., 1., (args.num_styles, network.input_style.shape[1]))
 
-    output = network.generate_BA(images, scales, 16)
-    output = 0.5*output + 0.5
 
-    for i in range(args.num_styles):
-        print("New image is saved")
-        misc.imsave(args.output + '_{}.jpg'.format(i), output[i])
+
+
+
+
+
+
+
+  n = 0
+
+    for im in lines:
+      if n == 20:
+        break
+
+      img = misc.imread(im, mode='RGB')
+      #img = misc.imread(args.input, mode='RGB')
+
+
+      if not args.aligned:
+          from align.detect_align import detect_align
+          img = detect_align(img)
+
+      img = (img - 127.5) / 128.0
+
+      images = np.tile(img[None], [args.num_styles, 1, 1, 1])
+      scales = args.scale * np.ones((1))
+      #styles = np.random.normal(0., 1., (args.num_styles, network.input_style.shape[1]))
+
+      output = network.generate_BA(images, scales, 16)
+      output = 0.5*output + 0.5
+
+      for i in range(args.num_styles):
+          print("New image is saved")
+          misc.imsave(args.output + '_{}.jpg'.format(i), output[i])
 
 

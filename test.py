@@ -27,13 +27,15 @@ args = parser.parse_args()
 
 if __name__ == '__main__':
 
-    network = WarpGAN()
-    network.load_model(args.model_dir)
+    
+    path = "GraduationProject/data/realCV"
 
-    with open("file.txt") as file_in:
+    with open("GraduationProject/test.txt") as file_in:
       lines = []
       for line in file_in:
-          lines.append(os.path.join(path,line))
+          temp = line[:-1] 
+          if temp[0] == "P":
+            lines.append(os.path.join(path,temp))
 
 
     #imgs = []
@@ -41,6 +43,8 @@ if __name__ == '__main__':
     #for im in lines:
     #  imgs.append(Image.open(os.path.join(path,im)))
 
+    network = WarpGAN()
+    network.load_model(args.model_dir)
 
 
 
@@ -49,13 +53,23 @@ if __name__ == '__main__':
 
 
 
-
-  n = 0
+    n = 0
 
     for im in lines:
-      if n == 20:
+      if n == 30:
         break
 
+
+
+      if os.path.isfile(im):
+        print ("File exist")
+        print(im,"\n")
+        
+      else:
+        print ("File not exist")
+        print(im,"\n")
+        continue
+      
       img = misc.imread(im, mode='RGB')
       #img = misc.imread(args.input, mode='RGB')
 
@@ -75,6 +89,7 @@ if __name__ == '__main__':
 
       for i in range(args.num_styles):
           print("New image is saved")
-          misc.imsave(args.output + '_{}.jpg'.format(i), output[i])
+          temp = "drive/My Drive/testResults/"
+          misc.imsave(temp + os.path.basename(im), output[i])
 
 

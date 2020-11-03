@@ -2,7 +2,7 @@
 
 
 
-A tensorflow implementation of merged [WarpGAN](https://arxiv.org/abs/1811.10100) and AnimeGAN. Project aims to generate Anime/Manga faces from real faces. Project is not completed yet and currently on development.
+A tensorflow implementation of merged [WarpGAN](https://arxiv.org/abs/1811.10100) and AnimeGAN. Project aims to generate Anime/Manga faces from real faces. 
 
 
 
